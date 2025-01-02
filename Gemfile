@@ -65,4 +65,4 @@ end
 
 gem "stripe", "~> 13.3"
 
-gem "tailwindcss-rails", "~> 3.0"
+gem "tailwindcss-rails", "~> 3.1"
