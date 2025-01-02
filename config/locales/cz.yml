@@ -1,0 +1,5 @@
+cz:
+  hello: "Ahoj Světe"
+  products:
+    index:
+      title: "Produkty"

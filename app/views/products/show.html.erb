@@ -1,5 +1,37 @@
-<h1><%= @product.name %></h1>
+<div class="bg-white">
+  <div class="button-back mb-4">
+    <p>
+      <%= link_to "Back", products_path, class: "text-indigo-600 hover:text-indigo-500 font-semibold" %>
+    </p>
+  </div>
 
-<%= link_to "Back", products_path %>
-<%= link_to "Edit", edit_product_path(@product) %>
-<%= button_to "Delete", @product, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+  <section class="wrapper">
+    <div class="max-w-7xl w-full mx-auto px-10 mb-2"> 
+      <%= link_to "Products", products_path, class: "text-xl text-gray-900 hover:text-gray-600" %>
+      <%= link_to "> #{@product.name}", @product, class: "text-xl text-gray-900" %>
+    </div>
+
+    <section class="product-img mb-6">
+      <%= image_tag @product.featured_image, alt: @product.name, class: "rounded-lg shadow-md" %>
+    </section>
+
+    <section class="product-info">
+      <% cache @product do %>
+        <div class="product-text mb-4">
+          <h1 class="text-2xl font-bold text-gray-900"><%= @product.name %></h1>
+          <p class="mt-2 text-gray-700"><%= @product.description %></p>
+          <p class="mt-2 text-lg font-medium text-gray-900"><%= number_to_currency @product.price %></p>
+          <%= link_to "Buy Now", product_buy_now_path(@product), class: "mt-4 inline-block rounded-md bg-indigo-600 px-4 py-2 text-white font-semibold hover:bg-indigo-500" %>
+          <%= render "inventory", product: @product %>
+        </div>
+      <% end %>
+
+      <div class="product-price-btn">
+        <% if admin_signed_in? %>
+          <%= link_to "Edit", edit_product_path(@product), class: "inline-block rounded-md bg-blue-600 px-4 py-2 text-white font-semibold hover:bg-blue-500" %>
+          <%= button_to "Delete", @product, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "inline-block ml-4 rounded-md bg-red-600 px-4 py-2 text-white font-semibold hover:bg-red-500" %>
+        <% end %>
+      </div>
+    </section>
+  </section>
+</div>

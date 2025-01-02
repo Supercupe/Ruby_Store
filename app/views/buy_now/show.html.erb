@@ -1,0 +1,20 @@
+<p class="mb-4">
+  <%= link_to "Back", product_path(@product), class: "text-blue-600 hover:text-blue-800 underline" %>
+</p>
+
+<div class="max-w-7xl w-full mx-auto px-10 mb-4 flex items-center space-x-4">
+  <%= link_to "Products", products_path, class: "text-xl text-gray-100 hover:text-gray-200 font-medium" %>
+  <span class="text-xl text-gray-100">/</span>
+  <%= link_to @product.name, @product, class: "text-xl text-gray-100 font-bold" %>
+</div>
+
+<h1 class="text-3xl font-bold text-gray-900 mb-4"><%= @product.name %></h1>
+
+<div class="mb-6">
+  <%= image_tag @product.featured_image, alt: @product.name, class: "w-full max-w-md mx-auto rounded-lg shadow-lg" %>
+</div>
+
+<p class="text-lg text-gray-700 leading-relaxed mb-6"><%= @product.description %></p>
+
+<div data-controller="stripe-checkout" data-stripe-checkout-url-value="<%= product_buy_now_path(@product) %>" class="mt-6">
+</div>

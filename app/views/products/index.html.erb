@@ -1,11 +1,34 @@
-<h1>Products</h1>
+<h1 class="text-3xl font-bold text-center my-8">Welcome to Our Store</h1>
 
-<%= link_to "New product", new_product_path %>
-
-<div id="products">
-  <% @products.each do |product| %>
-    <div>
-      <%= link_to product.name, product %>
+<div class="bg-white">
+  <div class="py-16 sm:py-24 lg:mx-auto lg:max-w-7xl lg:px-8">
+    <div class="flex items-center justify-between px-4 sm:px-6 lg:px-0">
+      <h2 class="text-2xl font-bold tracking-tight text-gray-900">Trending Products</h2>
     </div>
+
+    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+      <% @products.each do |product| %>
+        <a href="<%= product_path(product) %>" class="group">
+          <%= image_tag product.featured_image, alt: product.name, class: "aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]" %>
+          <h3 class="mt-4 text-sm text-gray-700"><%= product.name %></h3>
+          <p class="mt-1 text-lg font-medium text-gray-900"><%= number_to_currency(product.price) %></p>
+        </a>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="mt-8 text-center">
+  <% if admin_signed_in? %>
+    <div class="mb-4">
+      <p class="text-lg font-semibold text-gray-800">Welcome, <%= current_admin.email %>!</p>
+    </div>
+    <%= link_to "New Product", new_product_path, class: "inline-block px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200" %>
+    <%= button_to 'Logout', destroy_admin_session_path, method: :delete, class: "inline-block ml-4 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-200" %>
+  <% elsif user_signed_in? %>
+    <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "inline-block px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-200" %>
+  <% else %>
+    <%= link_to "Log in", new_user_registration_path, class: "inline-block px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-200" %>
+    <%= link_to "Sign up", new_user_registration_path, class: "inline-block ml-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200" %>
   <% end %>
 </div>
